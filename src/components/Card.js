@@ -1,12 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 
 function Card({
-  name,
-  specialty,
-  greased,
-  weight,
+  hog: { name, specialty, greased, weight, image },
   medal,
-  image,
   focused,
   handleFocusChange,
 }) {
