@@ -1,27 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import Card from "./Card.js";
 
-function CardStack({ hogArray, filterState }) {
-  const [focusedCard, setFocusedCard] = useState(null);
-
-  function handleFocusChange(name) {
-    setFocusedCard(name);
-  }
-
+function CardStack({ hogArray }) {
   const cardsArray = hogArray.map(filteredHog => {
     return (
       <div key={filteredHog.name}>
         <Card
           hog={filteredHog}
           medal={filteredHog["highest medal achieved"]}
-          focused={focusedCard}
-          handleFocusChange={handleFocusChange}
+          filteredHog={filteredHog}
         />
       </div>
     );
   });
 
-  return <div className="ui grid container">{cardsArray}</div>;
+  return <div className="ui grid">{cardsArray}</div>;
 }
 
 export default CardStack;

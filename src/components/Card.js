@@ -1,31 +1,32 @@
 import React from "react";
 
-function Card({
-  hog: { name, specialty, greased, weight, image },
-  medal,
-  focused,
-  handleFocusChange,
-}) {
-  function handleClick() {
-    handleFocusChange(name);
-  }
-
-  const secondaryData = (
-    <div>
-      <div>Specialty: {specialty}</div>
-      <div>Greased: {greased ? "Yes" : "No"}</div>
-      <div>Weight: {weight}</div>
-      <div>Highest Medal: {medal}</div>
+function Card({ hog: { image, name, specialty, greased, weight }, medal }) {
+  const cardData = (
+    <div className="ui cards">
+      <div className="ui slide masked reveal image">
+        <div className="visibile content">
+          <img src={image} alt={name} className="ui medium image" />
+        </div>
+        <div className="ui card hidden content">
+          <div className="content ">
+            <div className="description">
+              <div>Specialty: {specialty}</div>
+              <div>Greased: {greased ? "Yes" : "No"}</div>
+              <div>Weight: {weight}</div>
+              <div>Highest Medal: {medal}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="content">
+        <a href="header" className="header">
+          {name}
+        </a>
+      </div>
     </div>
   );
 
-  return (
-    <div className="ui eight wide column" onClick={handleClick}>
-      <h2>{name}</h2>
-      <img height="150" width="150" src={image} alt={name} />
-      {focused === name ? secondaryData : null}
-    </div>
-  );
+  return <div>{cardData}</div>;
 }
 
 export default Card;

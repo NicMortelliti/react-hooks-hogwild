@@ -32,8 +32,15 @@ function App() {
   return (
     <div className="App">
       <Nav />
-      <Filter filterState={filterState} handleFilterState={handleFilterState} />
-      <CardStack hogArray={hogArrayState} filterState={filterState} />
+      <div className="ui center aligned basic segment">
+        <Filter
+          filterState={filterState}
+          handleFilterState={handleFilterState}
+        />
+        <div className="ui horizontal divider"></div>
+
+        <CardStack hogArray={hogArrayState} filterState={filterState} />
+      </div>
     </div>
   );
 }
