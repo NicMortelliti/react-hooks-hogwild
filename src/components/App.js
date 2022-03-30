@@ -6,25 +6,34 @@ import Filter from "./Filter.js";
 import hogs from "../porkers_data";
 
 function App() {
+  // Store drop down filter state (All, Greased, Not Greased)
   const [filterState, setFilterState] = useState("All");
 
-  function updateCategory(event) {
-    console.log(event.target.value);
-    if (event.target.value === "Greased") {
-      setFilterState(true);
-    } else if (event.target.value === "Not Greased") {
-      setFilterState(false);
-    } else {
-      setFilterState(event.target.value);
+  // Store array of pigs that satisfy current drop down filterState
+  const [hogArrayState, setHogArrayState] = useState(hogs);
+
+  function handleFilterState(event) {
+    const newFilterState = event.target.value;
+    setFilterState(newFilterState);
+    if (newFilterState === "All") {
+      // ALL
+      setHogArrayState(hogs);
+    } else if (newFilterState === "Greased") {
+      // GREASED
+      setHogArrayState(hogs.filter(hog => hog.greased === true));
+      console.log("You chose to display greased hogs");
+    } else if (newFilterState === "Not Greased") {
+      // NOT GREASED
+      setHogArrayState(hogs.filter(hog => hog.greased === false));
+      console.log("You chose to display ungreased hogs");
     }
-    setFilterState(event.target.value);
   }
 
   return (
     <div className="App">
       <Nav />
-      <Filter updateCategory={updateCategory} />
-      <CardStack hogs={hogs} filterState={filterState} />
+      <Filter filterState={filterState} handleFilterState={handleFilterState} />
+      <CardStack hogArray={hogArrayState} filterState={filterState} />
     </div>
   );
 }

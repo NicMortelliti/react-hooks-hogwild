@@ -1,6 +1,6 @@
 import React from "react";
 
-function Filter({ updateCategory }) {
+function Filter({ filterState, handleFilterState }) {
   const greasedArray = [
     <option key="all">All</option>,
     <option key="greased">Greased</option>,
@@ -8,9 +8,11 @@ function Filter({ updateCategory }) {
   ];
 
   return (
-    <select name="category" onChange={updateCategory}>
-      {greasedArray}
-    </select>
+    <div>
+      <select defaultValue={filterState} onChange={handleFilterState}>
+        {greasedArray}
+      </select>
+    </div>
   );
 }
 
