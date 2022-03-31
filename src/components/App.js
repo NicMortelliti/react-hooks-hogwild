@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Nav from "./Nav";
 import CardStack from "./CardStack.js";
 import Filter from "./Filter.js";
+import Sort from "./Sort.js";
 
 import hogs from "../porkers_data";
 
@@ -37,6 +38,7 @@ function App() {
           filterState={filterState}
           handleFilterState={handleFilterState}
         />
+        <Sort />
         <div className="ui horizontal divider"></div>
 
         <CardStack hogArray={hogArrayState} filterState={filterState} />
