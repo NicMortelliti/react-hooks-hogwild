@@ -14,7 +14,7 @@ function CardStack({ hogArray }) {
     );
   });
 
-  return <div className="ui grid">{cardsArray}</div>;
+  return <div className="ui four doubling cards">{cardsArray}</div>;
 }
 
 export default CardStack;
