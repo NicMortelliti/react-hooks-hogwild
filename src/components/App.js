@@ -34,7 +34,33 @@ function App() {
   }
 
   function handleSortChange(event) {
-    setSortState(event.target.name);
+    let newSortState = event.target.name;
+    setSortState(newSortState);
+    newSortState = newSortState.toLowerCase();
+
+    // Sort by name
+    if (newSortState === "name") {
+      setHogArrayState(
+        hogs.sort(function (hogA, hogB) {
+          const nameA = hogA.name.toUpperCase();
+          const nameB = hogB.name.toUpperCase();
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+          return 0;
+        })
+      );
+    } else {
+      // Sort by weight
+      setHogArrayState(
+        hogs.sort(function (hogA, hogB) {
+          return hogA[newSortState] - hogB[newSortState];
+        })
+      );
+    }
   }
 
   return (
@@ -48,7 +74,7 @@ function App() {
         <Sort sortState={sortState} handleSortChange={handleSortChange} />
         <div className="ui horizontal divider"></div>
 
-        <CardStack hogArray={hogArrayState} filterState={filterState} />
+        <CardStack hogArray={hogArrayState} />
       </div>
     </div>
   );

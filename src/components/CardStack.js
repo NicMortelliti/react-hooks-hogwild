@@ -2,6 +2,7 @@ import React from "react";
 import Card from "./Card.js";
 
 function CardStack({ hogArray }) {
+  // console.log(hogArray);
   const cardsArray = hogArray.map(filteredHog => {
     return (
       <div key={filteredHog.name}>
