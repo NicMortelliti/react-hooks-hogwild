@@ -33,15 +33,15 @@ function App() {
     }
   }
 
-  function handleSortChange(event) {
-    let newSortState = event.target.name;
+  function handleSortChange(name) {
+    let newSortState = name;
     setSortState(newSortState);
     newSortState = newSortState.toLowerCase();
 
     // Sort by name
     if (newSortState === "name") {
       setHogArrayState(
-        hogs.sort(function (hogA, hogB) {
+        hogArrayState.sort(function (hogA, hogB) {
           const nameA = hogA.name.toUpperCase();
           const nameB = hogB.name.toUpperCase();
           if (nameA < nameB) {
@@ -56,7 +56,7 @@ function App() {
     } else {
       // Sort by weight
       setHogArrayState(
-        hogs.sort(function (hogA, hogB) {
+        hogArrayState.sort(function (hogA, hogB) {
           return hogA[newSortState] - hogB[newSortState];
         })
       );

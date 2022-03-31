@@ -11,7 +11,7 @@ function Sort({ sortState, handleSortChange }) {
             type="radio"
             name={option}
             checked={sortState === option ? "checked" : ""}
-            onChange={handleSortChange}
+            onChange={() => handleSortChange(option)}
           />
           <label>{option}</label>
         </div>
