@@ -13,6 +13,9 @@ function App() {
   // Store array of pigs that satisfy current drop down filterState
   const [hogArrayState, setHogArrayState] = useState(hogs);
 
+  // Store sort state
+  const [sortState, setSortState] = useState("Name");
+
   function handleFilterState(event) {
     const newFilterState = event.target.value;
     setFilterState(newFilterState);
@@ -30,6 +33,10 @@ function App() {
     }
   }
 
+  function handleSortChange(event) {
+    setSortState(event.target.name);
+  }
+
   return (
     <div className="App">
       <Nav />
@@ -38,7 +45,7 @@ function App() {
           filterState={filterState}
           handleFilterState={handleFilterState}
         />
-        <Sort />
+        <Sort sortState={sortState} handleSortChange={handleSortChange} />
         <div className="ui horizontal divider"></div>
 
         <CardStack hogArray={hogArrayState} filterState={filterState} />
