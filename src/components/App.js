@@ -16,44 +16,50 @@ function App() {
   // Store sort state
   const [sortState, setSortState] = useState("Name");
 
-  function handleFilterState(value) {
-    setFilterState(value);
-    if (value === "All") {
-      setHogArrayState(hogs);
-    } else if (value === "Greased") {
-      setHogArrayState(hogs.filter(hog => hog.greased === true));
-    } else if (value === "Not Greased") {
-      setHogArrayState(hogs.filter(hog => hog.greased === false));
+  /***************************
+   * Update array stack with sorting/filtering
+   ***************************/
+  function handleStackUpdate(component, value) {
+    let localFilter = filterState;
+    let localSort = sortState;
+    let localHogs = [...hogs];
+
+    // Update appropriate state
+    if (component === "filter") {
+      setFilterState(value);
+      localFilter = value;
+    } else {
+      setSortState(value);
+      localSort = value;
     }
-  }
 
-  function handleSortChange(name) {
-    let newSortState = name;
-    setSortState(newSortState);
-    newSortState = newSortState.toLowerCase();
+    /***************************
+     * Sort whole hog list first
+     ***************************/
+    localSort = localSort.toLowerCase();
+    if (localSort === "name") {
+      // Sort by name
+      localHogs.sort(function (hogA, hogB) {
+        const nameA = hogA.name.toLowerCase();
+        const nameB = hogB.name.toLowerCase();
 
-    // Sort by name
-    if (newSortState === "name") {
-      setHogArrayState(
-        hogArrayState.sort(function (hogA, hogB) {
-          const nameA = hogA.name.toUpperCase();
-          const nameB = hogB.name.toUpperCase();
-          if (nameA < nameB) {
-            return -1;
-          }
-          if (nameA > nameB) {
-            return 1;
-          }
-          return 0;
-        })
-      );
+        // Nested if/else if/else statements
+        return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
+      });
     } else {
       // Sort by weight
-      setHogArrayState(
-        hogArrayState.sort(function (hogA, hogB) {
-          return hogA[newSortState] - hogB[newSortState];
-        })
-      );
+      localHogs.sort((hogA, hogB) => hogA[localSort] - hogB[localSort]);
+    }
+
+    /***************************
+     * Apply filtering to sorted array
+     ***************************/
+    if (localFilter === "All") {
+      setHogArrayState(localHogs);
+    } else if (localFilter === "Greased") {
+      setHogArrayState(localHogs.filter(hog => hog.greased === true));
+    } else if (localFilter === "Not Greased") {
+      setHogArrayState(localHogs.filter(hog => hog.greased === false));
     }
   }
 
@@ -63,9 +69,9 @@ function App() {
       <div className="ui center aligned basic segment">
         <Filter
           filterState={filterState}
-          handleFilterState={handleFilterState}
+          handleFilterState={handleStackUpdate}
         />
-        <Sort sortState={sortState} handleSortChange={handleSortChange} />
+        <Sort sortState={sortState} handleSortChange={handleStackUpdate} />
         <div className="ui horizontal divider"></div>
 
         <CardStack hogArray={hogArrayState} />
