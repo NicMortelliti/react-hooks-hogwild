@@ -16,20 +16,14 @@ function App() {
   // Store sort state
   const [sortState, setSortState] = useState("Name");
 
-  function handleFilterState(event) {
-    const newFilterState = event.target.value;
-    setFilterState(newFilterState);
-    if (newFilterState === "All") {
-      // ALL
+  function handleFilterState(value) {
+    setFilterState(value);
+    if (value === "All") {
       setHogArrayState(hogs);
-    } else if (newFilterState === "Greased") {
-      // GREASED
+    } else if (value === "Greased") {
       setHogArrayState(hogs.filter(hog => hog.greased === true));
-      console.log("You chose to display greased hogs");
-    } else if (newFilterState === "Not Greased") {
-      // NOT GREASED
+    } else if (value === "Not Greased") {
       setHogArrayState(hogs.filter(hog => hog.greased === false));
-      console.log("You chose to display ungreased hogs");
     }
   }
 

@@ -9,7 +9,10 @@ function Filter({ filterState, handleFilterState }) {
 
   return (
     <div>
-      <select defaultValue={filterState} onChange={handleFilterState}>
+      <select
+        defaultValue={filterState}
+        onChange={event => handleFilterState(event.target.value)}
+      >
         {greasedArray}
       </select>
     </div>
